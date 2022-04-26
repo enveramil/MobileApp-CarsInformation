@@ -23,19 +23,30 @@ class CarsAdapter(val carsList : ArrayList<CarsModel>) : RecyclerView.Adapter<Ca
     override fun onBindViewHolder(holder: CarsHolder, position: Int) {
         // Layout bağlandıktan sonra neler olacağını bu fonksiyon içerisinde belirtiriz.
         holder.binding.carsRecyclerView.text = carsList.get(position).carName
-
-        // Her bir item'a tıklanınca başka sayfaya gidecek
-        holder.itemView.setOnClickListener {
+        holder.binding.cardView.setOnClickListener {
             val intent = Intent(holder.itemView.context,InformationPage::class.java)
             //intent.putExtra("cars",carsList.get(position))
             //chosenCarsList = carsList.get(position)
             Singleton.singleton = carsList.get(position)
             holder.itemView.context.startActivity(intent)
         }
+        // Her bir item'a tıklanınca başka sayfaya gidecek
+
+
+
     }
 
     override fun getItemCount(): Int {
         // Kaç tane oluşturacağımızı burada belirtiriz.
         return carsList.size
     }
+
+    fun deleteItem(position : Int){
+        carsList.removeAt(position)
+        notifyItemRemoved(position)
+
+    }
+
+
+
 }

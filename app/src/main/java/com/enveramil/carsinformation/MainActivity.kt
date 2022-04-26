@@ -8,7 +8,9 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.LinearLayout
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.enveramil.carsinformation.databinding.ActivityMainBinding
 
 //var chosenCarsList : CarsModel? = null
@@ -16,6 +18,7 @@ import com.enveramil.carsinformation.databinding.ActivityMainBinding
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var carsList : ArrayList<CarsModel>
+    private lateinit var carsAdapter : CarsAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -38,6 +41,12 @@ class MainActivity : AppCompatActivity() {
         carsList.add(m3)
         carsList.add(range)
         carsList.add(escalade)
+        carsList.add(polo)
+        carsList.add(golf)
+        carsList.add(fr)
+        carsList.add(m3)
+        carsList.add(range)
+        carsList.add(escalade)
 
         // Inefficient
         // Bitmap ile görsel boyutunu küçültebiliriz
@@ -45,10 +54,12 @@ class MainActivity : AppCompatActivity() {
 
 
 
-        binding.carsRecyclerView.layoutManager = GridLayoutManager(applicationContext,2)
-        val carsAdapter = CarsAdapter(carsList)
+        binding.carsRecyclerView.layoutManager = LinearLayoutManager(this)
+        carsAdapter = CarsAdapter(carsList)
         binding.carsRecyclerView.adapter = carsAdapter
 
+        var itemTouchHelper = ItemTouchHelper(SwipeToDelete(carsAdapter))
+        itemTouchHelper.attachToRecyclerView(binding.carsRecyclerView)
 
 
 
