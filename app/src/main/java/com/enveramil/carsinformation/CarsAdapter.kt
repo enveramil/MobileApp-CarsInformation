@@ -4,6 +4,7 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.enveramil.carsinformation.Singleton.singleton
 import com.enveramil.carsinformation.databinding.RecyclerRowBinding
@@ -30,6 +31,7 @@ class CarsAdapter(val carsList : ArrayList<CarsModel>) : RecyclerView.Adapter<Ca
             Singleton.singleton = carsList.get(position)
             holder.itemView.context.startActivity(intent)
         }
+
         // Her bir item'a tıklanınca başka sayfaya gidecek
 
 

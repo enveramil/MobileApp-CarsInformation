@@ -4,14 +4,18 @@ import android.content.Intent
 import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.LinearLayout
+import android.widget.Toast
+import androidx.core.view.get
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.enveramil.carsinformation.databinding.ActivityMainBinding
+import com.google.android.material.internal.ContextUtils.getActivity
 
 //var chosenCarsList : CarsModel? = null
 
@@ -25,6 +29,8 @@ class MainActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
         carsList = ArrayList<CarsModel>()
+
+
 
         // Get data with static
         val polo = CarsModel("VW Polo","1.4 TSI HIGHLINE",R.drawable.polo)
@@ -52,17 +58,49 @@ class MainActivity : AppCompatActivity() {
         // Bitmap ile görsel boyutunu küçültebiliriz
         //val bitmap = BitmapFactory.decodeResource(resources,R.drawable.fr)
 
-
-
         binding.carsRecyclerView.layoutManager = LinearLayoutManager(this)
         carsAdapter = CarsAdapter(carsList)
         binding.carsRecyclerView.adapter = carsAdapter
 
+
         var itemTouchHelper = ItemTouchHelper(SwipeToDelete(carsAdapter))
         itemTouchHelper.attachToRecyclerView(binding.carsRecyclerView)
+        binding.emptyView.visibility = View.INVISIBLE
+        binding.button.visibility = View.INVISIBLE
 
+        carsAdapter.registerAdapterDataObserver(object : RecyclerView.AdapterDataObserver(){
+            override fun onChanged() {
+                super.onChanged()
+                checkEmpty()
+            }
 
+            override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
+                super.onItemRangeInserted(positionStart, itemCount)
+                checkEmpty()
+            }
 
+            override fun onItemRangeRemoved(positionStart: Int, itemCount: Int) {
+                super.onItemRangeRemoved(positionStart, itemCount)
+                checkEmpty()
+            }
+            fun checkEmpty(){
+
+                if (carsAdapter.itemCount == 0){
+                    binding.emptyView.visibility = View.VISIBLE
+                    binding.button.visibility = View.VISIBLE
+                }else{
+                    binding.emptyView.visibility = View.GONE
+                    binding.button.visibility = View.GONE
+                }
+
+                binding.button.setOnClickListener{
+                    var intent = intent
+                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    startActivity(intent)
+                    carsAdapter.notifyDataSetChanged()
+                }
+            }
+        })
 
         /*
         // Adapter : Layout & data connection process

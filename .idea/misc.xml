@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Enver/Desktop/kotlin/CarsInformation/app/src/main/res/drawable/ic_baseline_info_no_data.xml" value="0.25625" />
         <entry key="..\:/Users/Enver/Desktop/kotlin/CarsInformation/app/src/main/res/layout/activity_information_page.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Enver/Desktop/kotlin/CarsInformation/app/src/main/res/layout/activity_main.xml" value="0.264" />
         <entry key="..\:/Users/Enver/Desktop/kotlin/CarsInformation/app/src/main/res/layout/recycler_row.xml" value="0.24365942028985507" />

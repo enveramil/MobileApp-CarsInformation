@@ -15,6 +15,5 @@ class SwipeToDelete(var adapter: CarsAdapter) : ItemTouchHelper.SimpleCallback(0
     override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
         var position = viewHolder.adapterPosition
         adapter.deleteItem(position)
-
     }
 }
