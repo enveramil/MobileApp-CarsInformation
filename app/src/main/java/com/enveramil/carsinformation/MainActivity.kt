@@ -4,6 +4,9 @@ import android.content.Intent
 import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -93,12 +96,7 @@ class MainActivity : AppCompatActivity() {
                     binding.button.visibility = View.GONE
                 }
 
-                binding.button.setOnClickListener{
-                    var intent = intent
-                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
-                    startActivity(intent)
-                    carsAdapter.notifyDataSetChanged()
-                }
+
             }
         })
 
@@ -115,5 +113,20 @@ class MainActivity : AppCompatActivity() {
 
          */
 
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        var menuInflater : MenuInflater = getMenuInflater()
+        menuInflater.inflate(R.menu.menu,menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.get_all_data){
+            var intent = intent
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
+        }
+        return super.onOptionsItemSelected(item)
     }
 }
